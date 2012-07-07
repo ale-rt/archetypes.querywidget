@@ -214,6 +214,7 @@
         $.get(query, {}, function (data) { $('.ArchetypesQueryWidget .previewresults').html(data); });
     };
 
+/*
     // Enhance for javascript browsers
     $(document).ready(function () {
 
@@ -222,6 +223,7 @@
 
 
     });
+*/
 
     // Init widget
     $.querywidget.init = function () {
