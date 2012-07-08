@@ -25,7 +25,7 @@
                 }
                 if (typeof(val.group) != "undefined") {
                     var optgroup = select.find("optgroup[label=" + val.group + "]");
-                    if (optgroup.length == 0) {
+                    if (optgroup.length === 0) {
                         optgroup = $(document.createElement('optgroup'))
                                     .attr('label', val.group);
                         optgroup.append(option);
