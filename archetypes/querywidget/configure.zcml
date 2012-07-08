@@ -24,6 +24,12 @@
     />
 
   <browser:resource
+    name="archetypes.querywidget.querywidget.js"
+    permission="zope2.View"
+    file="querywidget-wire.js"
+    />
+
+  <browser:resource
     name="archetypes.querywidget.querywidget.css"
     permission="zope2.View"
     file="querywidget.css"

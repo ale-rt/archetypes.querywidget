@@ -32,162 +32,30 @@ function parseQuery(url) {
 buster.testCase("Test querywidget application", {
 
     setUp : function() {
+        window.portal_url = "http://nohost/foo";
         // We'll create a div element for the dialog
+        //console.log(document.body);
         $(document.body)
             .append(
                 $(document.createElement("div"))
                     .attr("id", "content")
             );
-
-        window.portal_url = "http://nohost/foo";
-        
+        $.querywidget.executed = [];
     },
     
-    "//test that querywidget is in our namespaces" : function() {
-
-        assert(window.querywidget);
+    "test that querywidget is in our namespaces" : function() {
+//        assert(window.querywidget);
+        assert(portal_url);
     },
     
-    "": {
+    "test widget setup": {
         setUp: function () {
            // Empty executed
-           $.querywidget.executed = [];
-            
+           $.querywidget.init(); 
         },
-        
-        "something obvious": function () {
-            assert(true);
+        "Widget is initialized": function () {
+            assert($.querywidget.initialized);
         }
         
     }
 });
-
-/*buster.testCase('popper-pushdowntab', {
-
- setUp: function () {
- var self = this;
- $('body').html(
- '<div id="the-top-bar">' +
- '<a id="the-link">' +
- 'Pushdown <span class="the-counter">11</span>' +
- '</a>' +
- '</div>'
- );
- // Mock stub for Mustache, which we assume to be tested by itself.
-
- this.mockMustache = sinon.mock(window.Mustache, "to_html",
- function (template, data) {
- return template;
- }
- );
-
- this.clock = sinon.useFakeTimers();
-
- this.xhr = sinon.useFakeXMLHttpRequest();
- var requests = this.requests = [];
- this.xhr.onCreate = function (xhr) {
- if (! requests) {
- return; // ???
- }
- requests.push(xhr);
- };
- // Make sure to deplete microtemplate cache in the head data
- window.head_data = {
- };
- },
-
- tearDown: function () {
- this.clock.restore();
- this.xhr.restore();
- this.mockMustache.restore();
- $('body').empty();
- },
-
- 'standard': {
-
- setUp: function () {
- $('#the-link').pushdowntab({
- name: 'mypushdown',
- selectTopBar: '#the-top-bar',
- findCounterLabel: '.the-counter'
- });
- assert($('#popper-pushdown-mypushdown').length > 0);
- assert.equals($('#popper-pushdown-mypushdown').is(':visible'),
- false);
- },
-
- tearDown: function () {
- $('#the-link').pushdowntab('destroy');
- },
-
- 'Create / destroy': function () {
- assert(true);
- },
-
- 'open it': function () {
-
- this.mockMustache.expects('to_html').once();
-
- $('#the-link').simulate('click');
-
- // Check what parameters were passed to the request.
- assert.equals(this.requests.length, 1);
- assert.equals(parseQuery(this.requests[0].url),
- {"needsTemplate": "true", 'ts': ''});
-
- // Receive the response
- this.requests[0].respond(200,
- {'Content-Type': 'application/json; charset=UTF-8'},
- JSON.stringify({
- microtemplate: 'THIS IS A PUSHDOWN',
- data: {}
- })
- );
-
- // bump the time
- this.clock.tick(400);
-
- this.mockMustache.verify();
-
- assert($('#popper-pushdown-mypushdown')
- .is(':visible'));
- },
-
- 'close it': function () {
-
- // click to open it
- $('#the-link').simulate('click');
-
- // Check what parameters were passed to the request.
- assert.equals(this.requests.length, 1);
- assert.equals(parseQuery(this.requests[0].url),
- {"needsTemplate": "true", 'ts': ''});
-
- // Receive the response
- this.requests[0].respond(200,
- {'Content-Type': 'application/json; charset=UTF-8'},
- JSON.stringify({
- microtemplate: 'THIS IS A PUSHDOWN',
- data: {}
- })
- );
-
- // bump the time
- this.clock.tick(400);
-
- assert($('#popper-pushdown-mypushdown').is(':visible'));
-
- // click again to close it
- $('#the-link').simulate('click');
-
- // bump the time
- this.clock.tick(200);
-
- refute($('#popper-pushdown-mypushdown').is(':visible'));
-
- }
-
- }
-
- });
- */

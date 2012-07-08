@@ -15,6 +15,7 @@ class QueryWidget(TypesWidget):
         'macro': 'querywidget',
         'helper_css': ('++resource++archetypes.querywidget.querywidget.css',),
         'helper_js': ('++resource++archetypes.querywidget.querywidget.js',
+                      '++resource++archetypes.querywidget.querywidget-wire.js',
                       '@@datepickerconfig'),
         }),
 
@@ -66,4 +67,4 @@ registerWidget(QueryWidget, title='Query',
     description=('Field for storing a query'),
     used_for=('archetypes.querywidget.QueryField',))
 
-__all__ = ('QueryWidget', )
+__all__ = ('QueryWidget',)

@@ -214,16 +214,8 @@
         $.get(query, {}, function (data) { $('.ArchetypesQueryWidget .previewresults').html(data); });
     };
 
-/*
     // Enhance for javascript browsers
-    $(document).ready(function () {
 
-        // Init
-        $.querywidget.init();
-
-
-    });
-*/
 
     // Init widget
     $.querywidget.init = function () {
@@ -237,7 +229,6 @@
 
         // Set initialized
         $.querywidget.initialized = true;
-
         // Get configuration
         $.getJSON(portal_url + '/@@querybuilderjsonconfig', function (data) {
             $.querywidget.config = data;
