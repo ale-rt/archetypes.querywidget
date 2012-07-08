@@ -5,8 +5,6 @@
 /*globals buster assert refute */
 /*globals JSON sinon */
 
-// as sinon does not provide an api for this,
-// we are obliged to throw this in ourselves.
 function parseQuery(url) {
     var result = {};
     var qs = url.split('?', 2)[1];
@@ -121,6 +119,6 @@ buster.testCase("Test querywidget application", {
         },
         "//We have to check what happens with grouped and ungrouped options" : function () {
               
-        },
+        }
     }    
 });
