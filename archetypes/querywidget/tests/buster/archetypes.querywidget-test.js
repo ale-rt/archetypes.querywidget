@@ -118,6 +118,9 @@ buster.testCase("Test querywidget application", {
                 var groupa_options = $(option_groups[0]).find('option');
                 assert.equals(groupa_options.length, 2);
             }
-        }
+        },
+        "//We have to check what happens with grouped and ungrouped options" : function () {
+              
+        },
     }    
 });
