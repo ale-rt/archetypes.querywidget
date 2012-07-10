@@ -1,7 +1,7 @@
 /*jslint undef: true, newcap: true, nomen: false, white: true, regexp: true */
 /*jslint plusplus: false, bitwise: true, maxerr: 50, maxlen: 110, indent: 4 */
 /*jslint sub: true */
-/*globals window navigator document console setTimeout jQuery $ */
+/*globals window navigator document console setTimeout jQuery unescape $ */
 /*globals buster assert refute */
 /*globals JSON sinon */
 
@@ -11,7 +11,7 @@ function parseQuery(url) {
     var items = qs === undefined ? []: qs.split('&');
     $.each(items, function (i, v) {
         var pair = v.split('=');
-        result[pair[0]] = pair[1];
+        result[pair[0]] = unescape(pair[1]);
     });
     return result;
 }
