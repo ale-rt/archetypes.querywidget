@@ -36,7 +36,13 @@ buster.testCase("Test querywidget initialization", {
         "Widget is initialized": function () {
             $.querywidget.init();
             assert($.querywidget.initialized);
+            /* we expect the widget initialization to call
+             * @@querybuilderjsonconfig (see plone.app.querystring egg)
+             */
             assert.calledOnce($.getJSON);
+            var spyCall = $.getJSON.getCall(0);
+            assert(spyCall.calledWith());
+            assert.equals("http://nohost/foo/@@querybuilderjsonconfig", spyCall.args[0]);
         },
         "Widget config is initialized": function () {
             assert.equals($.querywidget.config, {});
@@ -175,5 +181,18 @@ buster.testCase("Test querywidget createSelect method", {
                 assert.equals(groupa_options.length, 2);
             }
         }
+    }
+});
+
+buster.testCase("Test updateSearch method", {
+    setUp: function () {
+        querywidget_dom_setup();
+        $.querywidget.init();
+    },
+    "Call the method after dom is initialized with no widgets": function () {
+        assert.equals($.querywidget.updateSearch(), undefined);
+    },
+    "//Setup the dom to contain target widgets and check this method for real" : function () {
+        return;
     }
 });
