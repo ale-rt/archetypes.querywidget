@@ -33,6 +33,9 @@ buster.testCase("Test querywidget application", {
         },
         "Widget is initialized": function () {
             assert($.querywidget.initialized);
+        },
+        "Widget config is initialized": function () {
+            assert.equals($.querywidget.config, {});
         }
     },
 
