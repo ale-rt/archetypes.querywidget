@@ -16,29 +16,36 @@ function parseQuery(url) {
     return result;
 }
 
-// Browser tests
+/*
+ * This is the minimum setup needed for querywidget tests to work
+ */
+function querywidget_dom_setup() {
+    window.portal_url = "http://nohost/foo";
+    // We'll create a div element for the dialog
+    $(document.body).append($(document.createElement("div")).attr("id", "content"));
+    $.querywidget.executed = [];
+}
 
-buster.testCase("Test querywidget application", {
-    setUp: function () {
-        window.portal_url = "http://nohost/foo";
-        // We'll create a div element for the dialog
-        //console.log(document.body);
-        $(document.body).append($(document.createElement("div")).attr("id", "content"));
-        $.querywidget.executed = [];
-    },
+buster.testCase("Test querywidget initialization", {
+    setUp: querywidget_dom_setup,
     "test widget setup": {
         setUp: function () {
             // Empty executed
-            $.querywidget.init();
+            this.stub($, "getJSON");
         },
         "Widget is initialized": function () {
+            $.querywidget.init();
             assert($.querywidget.initialized);
+            assert.calledOnce($.getJSON);
         },
         "Widget config is initialized": function () {
             assert.equals($.querywidget.config, {});
         }
-    },
+    }
+});
 
+buster.testCase("Test querywidget createSelect method", {
+    setUp: querywidget_dom_setup,
     "test createSelect method with ungrouped values": {
         "We create a select and check it's structure": {
             setUp: function () {
