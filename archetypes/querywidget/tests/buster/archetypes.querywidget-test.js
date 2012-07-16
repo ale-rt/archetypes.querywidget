@@ -116,9 +116,54 @@ buster.testCase("Test querywidget application", {
                 var groupa_options = $(option_groups[0]).find('option');
                 assert.equals(groupa_options.length, 2);
             }
-        },
-        "//We have to check what happens with grouped and ungrouped options" : function () {
-              
         }
-    }    
+    },
+    "test createSelect method with grouped and ungrouped values": {
+        "We create a select and check it's structure": {
+            setUp: function () {
+                this.option_values = [{
+                    enabled: true,
+                    title: 'foo-a',
+                    group: "groupa"
+                }, {
+                    enabled: true,
+                    title: 'bar-a',
+                    group: "groupa"
+                }, {
+                    enabled: true,
+                    title: 'foo-b'
+                }, {
+                    enabled: true,
+                    title: 'bar-b'
+                }];
+                this.select = $.querywidget.createSelect(this.option_values, 1, 'anyClass', 'anyName');
+            },
+            "Select created": function () {
+                assert.equals(this.select.length, 1);
+                assert.match(this.select[0], {
+                    className: 'anyClass',
+                    name: 'anyName'
+                });
+
+            },
+            "Options created": function () {
+                var options = this.select.find('option');
+                assert.equals(options.length, this.option_values.length);
+                assert.match(options[1], {
+                    selected: true,
+                    value: 1,
+                    innerHTML: this.option_values[1].title
+                });
+            },
+            "Option groups created": function () {
+                var option_groups = this.select.find('optgroup');
+                assert.equals(option_groups.length, 1);
+                assert.match(option_groups[0], {
+                    label: 'groupa'
+                });
+                var groupa_options = $(option_groups[0]).find('option');
+                assert.equals(groupa_options.length, 2);
+            }
+        }
+    }
 });
